@@ -1,11 +1,11 @@
 {
-  "name": "dbhub",
+  "name": "eko-dbhub",
   "version": "1.1.0",
   "mcpName": "io.github.bytebase/dbhub",
   "description": "Minimal, token-efficient Database MCP Server for PostgreSQL, MySQL, SQL Server, SQLite, MariaDB",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bytebase/dbhub.git"
+    "url": "https://github.com/Ekotrope/dbhub.git"
   },
   "main": "dist/index.js",
   "type": "module",
