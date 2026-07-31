@@ -396,7 +396,7 @@ function validateSourceConfig(source: SourceConfig, configPath: string): void {
 
   // Validate type if provided
   if (source.type) {
-    const validTypes = ["postgres", "mysql", "mariadb", "sqlserver", "sqlite"];
+    const validTypes = ["postgres", "mysql", "mariadb", "sqlserver", "sqlite", "athena"];
     if (!validTypes.includes(source.type)) {
       throw new Error(
         `Configuration file ${configPath}: source '${source.id}' has invalid type '${source.type}'. ` +
@@ -889,6 +889,16 @@ export function buildDSNFromSource(source: SourceConfig): string {
   if (!source.type) {
     throw new Error(
       `Source '${source.id}': 'type' field is required when 'dsn' is not provided`
+    );
+  }
+
+  // Athena has no host/user/password connection parameters (region, database,
+  // workgroup, and output location all live in the DSN; credentials come from
+  // the AWS SDK's default provider chain), so a DSN is the only supported form.
+  if (source.type === "athena") {
+    throw new Error(
+      `Source '${source.id}': Athena sources must be configured with a 'dsn' field, ` +
+        `e.g. dsn = "athena://us-east-1/default?workgroup=primary&output_location=s3://bucket/prefix/"`
     );
   }
 

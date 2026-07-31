@@ -174,6 +174,7 @@ outside TOML and follow the same order:
   - SQL Server (named instance): `sqlserver://user:password@localhost:1433/dbname?instanceName=ENV1`
   - SQL Server (NTLM): `sqlserver://user:password@localhost:1433/dbname?authentication=ntlm&domain=MYDOMAIN`
   - SQLite: `sqlite:///path/to/database.db` or `sqlite:///:memory:`
+  - AWS Athena: `athena://us-east-1/default?workgroup=primary&output_location=s3://bucket/prefix/` (credentials from the AWS SDK default provider chain, never the DSN)
 - SSL modes: `sslmode=disable` (no SSL), `sslmode=require` (SSL without cert verification), `sslmode=verify-ca` (PostgreSQL only, CA verification), `sslmode=verify-full` (PostgreSQL only, CA + hostname verification). Use `sslrootcert` to specify CA certificate path for verify modes.
 
 ## Testing Approach

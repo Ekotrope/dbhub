@@ -770,7 +770,7 @@ export async function resolveSourceConfigs(): Promise<{ sources: SourceConfig[];
     const protocol = dsnUrl.protocol.replace(':', '');
 
     // Map protocol to database type
-    let dbType: "postgres" | "mysql" | "mariadb" | "sqlserver" | "sqlite";
+    let dbType: "postgres" | "mysql" | "mariadb" | "sqlserver" | "sqlite" | "athena";
     if (protocol === 'postgresql' || protocol === 'postgres') {
       dbType = 'postgres';
     } else if (protocol === 'mysql') {
@@ -781,6 +781,8 @@ export async function resolveSourceConfigs(): Promise<{ sources: SourceConfig[];
       dbType = 'sqlserver';
     } else if (protocol === 'sqlite') {
       dbType = 'sqlite';
+    } else if (protocol === 'athena') {
+      dbType = 'athena';
     } else {
       throw new Error(`Unsupported database type in DSN: ${protocol}`);
     }

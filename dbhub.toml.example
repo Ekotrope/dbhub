@@ -217,6 +217,17 @@ dsn = "postgres://postgres:postgres@localhost:5432/myapp"
 # dsn = "sqlite:///:memory:"
 
 # ============================================================================
+# AWS ATHENA (Serverless; credentials from AWS SDK default provider chain)
+# ============================================================================
+
+# DSN is the only supported form: region as host, database as path.
+# workgroup/output_location/catalog are optional query params (output_location
+# may instead come from the workgroup's server-side configuration).
+# [[sources]]
+# id = "athena_analytics"
+# dsn = "athena://us-east-1/default?workgroup=primary&output_location=s3://my-bucket/athena-results/"
+
+# ============================================================================
 # TOOL CONFIGURATION (Optional)
 # ============================================================================
 #
@@ -362,6 +373,7 @@ dsn = "postgres://postgres:postgres@localhost:5432/myapp"
 #   MariaDB:     mariadb://user:pass@host:3306/database
 #   SQL Server:  sqlserver://user:pass@host:1433/database
 #   SQLite:      sqlite:///path/to/file.db  or  sqlite:///:memory:
+#   Athena:      athena://region/database?workgroup=primary&output_location=s3://bucket/prefix/
 #
 # Default Ports:
 #   PostgreSQL: 5432 | MySQL/MariaDB: 3306 | SQL Server: 1433

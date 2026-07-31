@@ -34,6 +34,7 @@ const AUTH_CODES: Record<ConnectorType, ReadonlyArray<string | number>> = {
   mariadb: ["ER_ACCESS_DENIED_ERROR", 1045, 1698],
   sqlserver: ["ELOGIN"],
   sqlite: [], // no network/auth layer
+  athena: [], // AWS SDK errors carry `name`, not `code`; not classified here
 };
 
 function unreachableMessage(sourceId: string): string {

@@ -183,6 +183,17 @@ function scanTokenSQLServer(sql: string, i: number): SQLToken {
     ?? plainToken(i);
 }
 
+// Athena (Trino) syntax: ANSI comments, single-quoted strings, double-quoted
+// identifiers, plus backtick-quoted identifiers in Hive-style DDL.
+function scanTokenAthena(sql: string, i: number): SQLToken {
+  return scanSingleLineComment(sql, i)
+    ?? scanMultiLineComment(sql, i)
+    ?? scanSingleQuotedString(sql, i)
+    ?? scanDoubleQuotedString(sql, i)
+    ?? scanBacktickQuotedIdentifier(sql, i)
+    ?? plainToken(i);
+}
+
 type TokenScanner = (sql: string, i: number) => SQLToken;
 
 const dialectScanners: Record<ConnectorType, TokenScanner> = {
@@ -191,6 +202,7 @@ const dialectScanners: Record<ConnectorType, TokenScanner> = {
   mariadb: scanTokenMySQL,
   sqlite: scanTokenSQLite,
   sqlserver: scanTokenSQLServer,
+  athena: scanTokenAthena,
 };
 
 function getScanner(dialect?: ConnectorType): TokenScanner {
